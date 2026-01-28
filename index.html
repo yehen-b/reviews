@@ -1,1 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReviewSpot | Quick Reviews</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary: #4f46e5;
+            --secondary: #ec4899;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .hero h1 { margin-bottom: 0.5rem; font-size: 2.5rem; }
+        .hero p { opacity: 0.9; font-size: 1.1rem; }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Review Form */
+        .review-form-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+        }
+
+        .form-title { margin-bottom: 1rem; }
+
+        .form-group { margin-bottom: 1rem; }
+        
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        button:hover { background-color: #4338ca; }
+
+        /* Reviews Grid */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .review-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .review-card:hover { transform: translateY(-3px); }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviewer-name { font-weight: bold; }
+        
+        .stars { color: #f59e0b; letter-spacing: 2px; }
+
+        .review-date { font-size: 0.8rem; color: var(--text-light); margin-bottom: 1rem; display: block;}
+
+        .review-text { color: var(--text-dark); }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">ReviewSpot</div>
+            <div>
+                <button style="background:transparent; color: var(--text-dark);">Login</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Community Reviews</h1>
+        <p>See what others are saying about our latest products.</p>
+    </section>
+
+    <div class="container">
+        
+        <div class="review-form-card">
+            <h2 class="form-title">Leave a Review</h2>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <select id="rating">
+                        <option value="5">★★★★★ (5 Stars)</option>
+                        <option value="4">★★★★☆ (4 Stars)</option>
+                        <option value="3">★★★☆☆ (3 Stars)</option>
+                        <option value="2">★★☆☆☆ (2 Stars)</option>
+                        <option value="1">★☆☆☆☆ (1 Star)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Your Review</label>
+                    <textarea id="comment" rows="3" placeholder="Share your experience..." required></textarea>
+                </div>
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #e5e7eb; margin-bottom: 2rem;">
+
+        <h2 style="margin-bottom: 1.5rem;">Latest Reviews</h2>
+        <div class="reviews-grid" id="reviewsContainer">
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Alice M.</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+                <span class="review-date">Oct 12, 2023</span>
+                <p class="review-text">Absolutely loved the service! The team was professional and the results were beyond my expectations.</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">David K.</span>
+                    <span class="stars">★★★★☆</span>
+                </div>
+                <span class="review-date">Oct 10, 2023</span>
+                <p class="review-text">Great quality, but shipping took a little longer than I hoped. Would buy again though.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* --- JAVASCRIPT --- */
+        
+        const form = document.getElementById('reviewForm');
+        const reviewsContainer = document.getElementById('reviewsContainer');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page reload
+
+            // 1. Get values from form
+            const name = document.getElementById('name').value;
+            const ratingValue = document.getElementById('rating').value;
+            const comment = document.getElementById('comment').value;
+            
+            // 2. Generate Star String
+            let stars = '';
+            for(let i=0; i<5; i++) {
+                if(i < ratingValue) stars += '★';
+                else stars += '☆';
+            }
+
+            // 3. Get Current Date
+            const date = new Date().toLocaleDateString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric'
+            });
+
+            // 4. Create new Card Element
+            const newCard = document.createElement('div');
+            newCard.classList.add('review-card');
+            newCard.innerHTML = `
+                <div class="review-header">
+                    <span class="reviewer-name">${name}</span>
+                    <span class="stars">${stars}</span>
+                </div>
+                <span class="review-date">${date}</span>
+                <p class="review-text">${comment}</p>
+            `;
+
+            // 5. Add to the top of the list (Animation effect)
+            newCard.style.opacity = '0';
+            reviewsContainer.prepend(newCard);
+            
+            // Trigger reflow for transition
+            setTimeout(() => {
+                newCard.style.transition = 'opacity 0.5s ease-in';
+                newCard.style.opacity = '1';
+            }, 10);
+
+            // 6. Reset form
+            form.reset();
+        });
+    </script>
+</body>
+</html>
