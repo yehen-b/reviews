@@ -7,9 +7,10 @@
     <style>
         /* --- CSS STYLES --- */
         :root {
-            /* Mexican Food Truck Palette */
-            --primary: #d946ef;   /* Vibrant Pink (often used in Mexican street art) */
-            --primary-dark: #be185d;
+            /* REPLACED PINK WITH RED HERE */
+            --primary: #dc2626;   /* Spicy Chili Red */
+            --primary-dark: #991b1b; /* Darker Red for text/gradients */
+            
             --secondary: #fbbf24; /* Bright Marigold */
             --accent: #16a34a;    /* Lime Green */
             --bg-color: #fafafa;
@@ -52,7 +53,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--primary-dark);
+            color: var(--primary); /* Uses the new Red */
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -64,9 +65,9 @@
         .hero {
             text-align: center;
             padding: 5rem 1rem 6rem 1rem;
+            /* Gradient from Dark Red to Chili Red */
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: white;
-            /* Zig Zag bottom edge using CSS masking */
             mask-image: linear-gradient(to top, transparent 1%, black 2%);
         }
 
@@ -84,7 +85,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 0 1rem;
-            margin-top: -4rem; /* Overlap hero */
+            margin-top: -4rem; 
             position: relative;
             z-index: 10;
         }
@@ -163,7 +164,7 @@
             margin-bottom: 0.5rem;
         }
 
-        .reviewer-name { font-weight: 800; color: var(--primary-dark); }
+        .reviewer-name { font-weight: 800; color: var(--primary); }
         
         .stars { color: var(--secondary); letter-spacing: 2px; }
 
@@ -187,7 +188,7 @@
 
     <header>
         <nav>
-            <div class="logo">🌮 Taste Of Mexico</div>
+            <div class="logo">Taste Of Mexico</div>
             <div>
                 <a href="#" style="text-decoration:none; color: var(--text-dark); font-weight:600;">Find Truck Location</a>
             </div>
