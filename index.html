@@ -1,1 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taste Of Mexico | Reviews</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            /* Mexican Food Truck Palette */
+            --primary: #d946ef;   /* Vibrant Pink (often used in Mexican street art) */
+            --primary-dark: #be185d;
+            --secondary: #fbbf24; /* Bright Marigold */
+            --accent: #16a34a;    /* Lime Green */
+            --bg-color: #fafafa;
+            --card-bg: #ffffff;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 5rem 1rem 6rem 1rem;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            /* Zig Zag bottom edge using CSS masking */
+            mask-image: linear-gradient(to top, transparent 1%, black 2%);
+        }
+
+        .hero h1 { 
+            margin-bottom: 0.5rem; 
+            font-size: 3.5rem; 
+            font-weight: 800;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+        }
+        
+        .hero p { opacity: 0.95; font-size: 1.3rem; font-weight: 500;}
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            margin-top: -4rem; /* Overlap hero */
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Review Form */
+        .review-form-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            border-top: 8px solid var(--secondary);
+        }
+
+        .form-title { margin-bottom: 1.5rem; color: var(--text-dark); }
+
+        .form-group { margin-bottom: 1.2rem; }
+        
+        label { display: block; margin-bottom: 0.5rem; font-weight: 700; font-size: 0.9rem; color: #4b5563; }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 0.85rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover { 
+            background-color: #15803d; 
+            transform: translateY(-2px);
+        }
+
+        /* Reviews Grid */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .review-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #f3f4f6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviewer-name { font-weight: 800; color: var(--primary-dark); }
+        
+        .stars { color: var(--secondary); letter-spacing: 2px; }
+
+        .review-date { font-size: 0.75rem; color: var(--text-light); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;}
+
+        .review-text { color: var(--text-dark); font-size: 0.95rem; font-style: italic; }
+
+        /* Section Divider */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+        .section-header h2 { font-size: 1.8rem; }
+        .line { flex: 1; height: 2px; background: #e5e7eb; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">🌮 Taste Of Mexico</div>
+            <div>
+                <a href="#" style="text-decoration:none; color: var(--text-dark); font-weight:600;">Find Truck Location</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Taste Of Mexico</h1>
+        <p>Real Street Food. Real Flavor.</p>
+    </section>
+
+    <div class="container">
+        
+        <div class="review-form-card">
+            <h2 class="form-title">How was your meal?</h2>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <select id="rating">
+                        <option value="5">★★★★★ - Loved it!</option>
+                        <option value="4">★★★★☆ - Pretty good</option>
+                        <option value="3">★★★☆☆ - Average</option>
+                        <option value="2">★★☆☆☆ - Not for me</option>
+                        <option value="1">★☆☆☆☆ - Disappointed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comment">Your Review</label>
+                    <textarea id="comment" rows="3" placeholder="Tell us what you ate..." required></textarea>
+                </div>
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+
+        <div class="section-header">
+            <h2>Community Feedback</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="reviews-grid" id="reviewsContainer">
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Alex J.</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+                <span class="review-date">Oct 14, 2023</span>
+                <p class="review-text">"Absolutely loved the service! The team was professional and the results were beyond my expectations."</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Maria G.</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+                <span class="review-date">Oct 12, 2023</span>
+                <p class="review-text">"Best tacos I've had since I visited Mexico City. The salsa is incredible!"</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Sam T.</span>
+                    <span class="stars">★★★★☆</span>
+                </div>
+                <span class="review-date">Oct 10, 2023</span>
+                <p class="review-text">"Delicious food, but the line was huge during lunch. Worth the wait though."</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* --- JAVASCRIPT --- */
+        
+        const form = document.getElementById('reviewForm');
+        const reviewsContainer = document.getElementById('reviewsContainer');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const name = document.getElementById('name').value;
+            const ratingValue = document.getElementById('rating').value;
+            const comment = document.getElementById('comment').value;
+            
+            let stars = '';
+            for(let i=0; i<5; i++) {
+                if(i < ratingValue) stars += '★';
+                else stars += '☆';
+            }
+
+            const date = new Date().toLocaleDateString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric'
+            });
+
+            const newCard = document.createElement('div');
+            newCard.classList.add('review-card');
+            newCard.innerHTML = `
+                <div class="review-header">
+                    <span class="reviewer-name">${name}</span>
+                    <span class="stars">${stars}</span>
+                </div>
+                <span class="review-date">${date}</span>
+                <p class="review-text">"${comment}"</p>
+            `;
+
+            newCard.style.opacity = '0';
+            newCard.style.transform = 'translateY(20px)';
+            reviewsContainer.prepend(newCard);
+            
+            setTimeout(() => {
+                newCard.style.transition = 'all 0.5s ease-out';
+                newCard.style.opacity = '1';
+                newCard.style.transform = 'translateY(0)';
+            }, 10);
+
+            form.reset();
+        });
+    </script>
+</body>
+</html>
